@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class AdminMenu
 {
     Scanner input = new Scanner(System.in);
+    public static final ReservationService reservationService = ReservationService.getInstance();
     public AdminMenu()
     {
         System.out.println("1.See all customers\n2.See all rooms\n3.See all reservations" +
@@ -55,11 +56,13 @@ public class AdminMenu
         if(roomTypeInput == 1)
         {
             Room room = new Room(roomNumber,roomPrice,RoomType.SINGLE);
-            AdminResource.adminResource.addRoom((List<IRoom>) room);
+            ReservationService.reservationService.roomList.add(room);
+            //AdminResource.adminResource.addRoom((List<IRoom>) room);
+            ReservationService.reservationService.addRoom(room);
         }else if(roomTypeInput == 2)
         {
             Room room = new Room(roomNumber,roomPrice,RoomType.DOUBLE);
-            AdminResource.adminResource.addRoom((List<IRoom>) room);
+            AdminResource.adminResource.addRoom(ReservationService.reservationService.addRoom(room));
         }
 
 

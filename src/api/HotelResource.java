@@ -4,6 +4,7 @@ import model.Customer;
 import model.IRoom;
 import model.Reservation;
 import service.CustomerService;
+import service.ReservationService;
 
 import java.util.Collection;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Date;
 public class HotelResource
 {
     public static final HotelResource hotelResource = new HotelResource();
+    public static final ReservationService reservationService = ReservationService.getInstance();
 
     public Customer getCustomer(String email)
     {
@@ -21,11 +23,12 @@ public class HotelResource
     {
         CustomerService.customerService.addCustomer(email,firstName,lastName);
     }
-//
-//    public IRoom getRoom(String roomNumber)
-//    {
-//        return
-//    }
+
+    public IRoom getRoom(String roomNumber)
+    {
+        reservationService.getARoom(reservationService.getRoomId());
+        return
+    }
 //
 //    public Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date checkOutDate)
 //    {

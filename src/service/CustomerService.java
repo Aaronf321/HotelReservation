@@ -6,7 +6,7 @@ import java.util.*;
 
 public class CustomerService
 {
-    Set<Customer> customerSet = new HashSet<Customer>();
+    Collection<Customer> customerSet = new HashSet<Customer>();
     Map<String, Customer> mapOfPeople = new HashMap<String,Customer>();
     public static final CustomerService customerService = new CustomerService();
 
