@@ -6,9 +6,20 @@ import java.util.*;
 
 public class CustomerService
 {
+    private static  CustomerService customerService = null;
     Collection<Customer> customerSet = new HashSet<Customer>();
     Map<String, Customer> mapOfPeople = new HashMap<String,Customer>();
-    public static final CustomerService customerService = new CustomerService();
+
+
+    public static CustomerService getInstance()
+    {
+        if(null == customerService)
+        {
+           customerService = new CustomerService();
+        }
+        return customerService;
+    }
+
 
 
     public void addCustomer(String email, String firstName, String lastName)

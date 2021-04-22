@@ -2,18 +2,18 @@ package view;
 
 import api.AdminResource;
 import model.IRoom;
-import model.Reservation;
 import model.Room;
 import model.RoomType;
-import service.CustomerService;
 import service.ReservationService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class AdminMenu
 {
     Scanner input = new Scanner(System.in);
+    public static final AdminResource adminResource = AdminResource.getInstance();
     public static final ReservationService reservationService = ReservationService.getInstance();
     public AdminMenu()
     {
@@ -26,26 +26,36 @@ public class AdminMenu
     {
         int userInput = input.nextInt();
 
-        if(userInput == 1)
-        {
-           CustomerService.customerService.getAllCustomers();
-        }else if(userInput == 2)
-        {
+     switch(userInput)
+     {
+         case 1: viewCustomers();
+         break;
 
-        }else if(userInput == 3)
-        {
+         case 2: seeAllRooms();
+         break;
 
-        }else if(userInput == 4)
-        {
-            roomAdd();
-        }else if(userInput == 5)
-        {
-            MainMenu mainMenu = new MainMenu();
-        }
+         case 3: seeAllReservations();
+         break;
+
+         case 4: roomAdd();
+         break;
+
+         case 5:  new MainMenu();
+         break;
+     }
+
+
+
     }
+    public void viewCustomers()
+    {
+        adminResource.getAllCustomers();
+    }
+
 
     public void roomAdd()
     {
+        List<IRoom> addToList = new ArrayList<>();
         System.out.println("Enter room number: ");
         String roomNumber = input.next();
         System.out.println("Enter price per night: ");
@@ -56,16 +66,38 @@ public class AdminMenu
         if(roomTypeInput == 1)
         {
             Room room = new Room(roomNumber,roomPrice,RoomType.SINGLE);
-            ReservationService.reservationService.roomList.add(room);
+            addToList.add(room);
+            adminResource.addRoom(addToList);
             //AdminResource.adminResource.addRoom((List<IRoom>) room);
-            ReservationService.reservationService.addRoom(room);
+
         }else if(roomTypeInput == 2)
         {
             Room room = new Room(roomNumber,roomPrice,RoomType.DOUBLE);
-            AdminResource.adminResource.addRoom(ReservationService.reservationService.addRoom(room));
+            addToList.add(room);
+            adminResource.addRoom(addToList);
         }
 
+        System.out.println("Would you like to add another room? y/n");
+        String confirmInput = input.next();
+        if(confirmInput.equals("y"))
+        {
+            roomAdd();
+        }else if(confirmInput.equals("n"))
+        {
+            new AdminMenu();
+            adminSelect();
+        };
 
+    }
+
+    public void seeAllRooms()
+    {
+        adminResource.getAllRooms();
+    }
+
+    public void seeAllReservations()
+    {
+        adminResource.displayAllReservations();
     }
 
 

@@ -10,24 +10,30 @@ import java.util.List;
 
 public class AdminResource
 {
-    public static final AdminResource adminResource = new AdminResource();
+    private static AdminResource adminResource = null;
+
+    public static AdminResource getInstance()
+    {
+        if(null == adminResource)
+        {
+            adminResource = new AdminResource();
+        }
+        return adminResource;
+    }
     public static final ReservationService reservationService = ReservationService.getInstance();
+    public static final CustomerService customerService = CustomerService.getInstance();
    public AdminResource() {}
 
     public Customer getCustomer(String email)
     {
-        return CustomerService.customerService.getCustomer(email);
+        return customerService.getCustomer(email);
     }
 
-    /**
-     *
-     * add room not working. Need to pass in a list instead of room object!!!
-     */
+
 
 
     public void addRoom(List<IRoom> rooms)
     {
-        //ReservationService.reservationService.addRoom(ReservationService.reservationService.addRoom());
         for(IRoom room : rooms)
         {
             reservationService.addRoom(room);
@@ -35,20 +41,20 @@ public class AdminResource
 
     }
 
-//    public Collection<IRoom> getAllRooms()
-//    {
-//        return
-//    }
+    public Collection<IRoom> getAllRooms()
+    {
+        return reservationService.getRoomList();
+    }
 
-//    public Collection<Customer>getAllCustomers()
-//    {
-//
-//    }
-//
-//    public void displayAllReservations()
-//    {
-//
-//    }
+    public Collection<Customer>getAllCustomers()
+    {
+        return customerService.getAllCustomers();
+    }
+
+    public void displayAllReservations()
+    {
+        reservationService.printAllReservation();
+    }
 
 
 

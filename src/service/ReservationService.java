@@ -3,21 +3,15 @@ package service;
 import model.Customer;
 import model.IRoom;
 import model.Reservation;
-import model.Room;
 
 import java.util.*;
 
 public class ReservationService
 {
     private static  ReservationService reservationService = null;
-    private int roomId;
-    Map<Integer,IRoom>roomMap = new HashMap<Integer,IRoom>();
-    Map<Customer,Reservation>reservationMap = new HashMap<Customer,Reservation>();
-    //List<IRoom> roomList = new ArrayList<IRoom>();
+    List<IRoom> roomList = new ArrayList<>();
+    Collection<Reservation> reservationList = new HashSet<>();
 
-    Collection<IRoom> roomList = new ArrayList<>();
-    Collection<Reservation> reservationList = new ArrayList<Reservation>();
-    Reservation mapValue;
 
     private ReservationService(){
     }
@@ -30,30 +24,26 @@ public class ReservationService
         }
         return reservationService;
     }
+
     public void addRoom(IRoom room)
     {
-        roomId++;
         roomList.add(room);
-        roomMap.put(roomId,room);
-
     }
 
-    public IRoom getARoom(String roomId)
+    public IRoom getARoom(String roomNumber)
     {
-        if(!roomMap.containsKey(this.roomId)) {
-            System.out.println("Room ID not found");
-        }else
-        {
-            System.out.println("Room found!");
-        }
-        return  roomMap.get(this.roomId);
+       for(IRoom room : roomList)
+       {
+           if(room.getRoomNumber().equals(roomNumber))
+               return room;
+       }
+       return null;
     }
 
     public Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate,Date checkOutDate)
     {
         Reservation reserveRoom = new Reservation(customer,room,checkInDate,checkOutDate);
         reservationList.add(reserveRoom);
-        reservationMap.put(customer,reserveRoom);
         return reserveRoom;
     }
 
@@ -65,7 +55,7 @@ public class ReservationService
             if(reservationList.contains(checkInDate))
             {
                 IRoom currentRoom = checkInOut.getRoom();
-               displayList.add(currentRoom);
+                displayList.add(currentRoom);
             }
         }
 
@@ -83,27 +73,27 @@ public class ReservationService
 
     public Collection<Reservation> getCustomerReservation(Customer customer)
     {
-      if(reservationMap.containsKey(customer))
-      {
-          Reservation mapValue = reservationMap.get(customer);
-      }else
-      {
-          System.out.println("Reservation not found!. . .");
-      }
-      return reservationList.get(0);
+        HashSet<Reservation> reservations = new HashSet<>();
+        for(Reservation r : reservationList)
+        {
+            if(customer.equals(r.getCustomer()))
+            {
+                reservations.add(r);
+            }
+        }
+        return reservations;
 
     }
     /**
      * figure out how to return customer reservation from map (I think)
      */
 
-//    public void printAllReservation()
-//    {
-//
-//    }
+    public void printAllReservation()
+    {
+        System.out.println(reservationList.toString());
+    }
 
-
-    public int getRoomId() {
-        return roomId;
+    public Collection<IRoom> getRoomList() {
+        return roomList;
     }
 }
