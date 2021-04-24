@@ -2,6 +2,7 @@ package view;
 
 
 import api.HotelResource;
+import model.IRoom;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,8 +26,7 @@ public class MainMenu
     public void menuSelect()
     {
         int userInput = input.nextInt();
-        Date checkIn;
-        Date checkOut;
+
 
 
        switch(userInput)
@@ -49,11 +49,6 @@ public class MainMenu
            default: String invalid = "Invalid input";
            break;
        }
-
-
-
-
-
     }
 
     public void choiceOne()
@@ -63,9 +58,20 @@ public class MainMenu
         System.out.println("Enter check out date: ");
         Date checkOutInput = enterDate();
 
+
+        //SOMETHING GOES HERE
+
+
+        System.out.println("Please enter your email (format: email@domain.com)");
+        String emailInput = input.next();
+        System.out.println("Please enter room number");
+        String roomInput = input.next();
+
+
         hotelResource.findARoom(checkInInput,checkOutInput);
+        hotelResource.bookARoom(emailInput, hotelResource.getRoom(roomInput),checkInInput,checkOutInput);
         new MainMenu();
-        menuSelect();
+
     }
 
     /*
@@ -75,12 +81,11 @@ public class MainMenu
 
     public void choiceTwo()
     {
-
+        Scanner input = new Scanner(System.in);
         System.out.println("Please enter your email to check your current reservation: (format: name@domain.com) ");
         String emailInput = input.nextLine();
         hotelResource.getCustomerReservations(emailInput);
         new MainMenu();
-        menuSelect();
     }
     public void choiceThree()
     {
@@ -88,12 +93,12 @@ public class MainMenu
         String firstName = input.next();
         System.out.println("Please enter your last name: ");
         String lastName = input.next();
-        System.out.println("Please enter you email (format name@domain.com:");
+        System.out.println("Please enter you email (format name@domain.com:)");
         String email = input.next();
 
         hotelResource.createACustomer(email,firstName,lastName);
         new MainMenu();
-        menuSelect();
+
     }
 
     public void choiceFour()

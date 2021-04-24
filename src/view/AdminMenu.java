@@ -93,6 +93,8 @@ public class AdminMenu
     public void seeAllRooms()
     {
         adminResource.getAllRooms();
+        new AdminMenu();
+        
     }
 
     public void seeAllReservations()

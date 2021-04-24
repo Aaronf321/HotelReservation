@@ -22,7 +22,7 @@ public class AdminResource
     }
     public static final ReservationService reservationService = ReservationService.getInstance();
     public static final CustomerService customerService = CustomerService.getInstance();
-   public AdminResource() {}
+    public AdminResource() {}
 
     public Customer getCustomer(String email)
     {

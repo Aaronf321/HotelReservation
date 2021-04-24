@@ -5,7 +5,6 @@ import model.IRoom;
 import model.Reservation;
 import service.CustomerService;
 import service.ReservationService;
-
 import java.util.Collection;
 import java.util.Date;
 
@@ -48,6 +47,8 @@ public class HotelResource
     public Collection<Reservation>getCustomerReservations(String customerEmail)
     {
         return reservationService.getCustomerReservation(customerService.getCustomer(customerEmail));
+
+        //return reservationService.getCustomerReservation(reservationService.getReservationList();
     }
 
     public Collection<IRoom>findARoom(Date checkIn,Date checkOut)

@@ -10,8 +10,12 @@ public class ReservationService
 {
     private static  ReservationService reservationService = null;
     List<IRoom> roomList = new ArrayList<>();
-    Collection<Reservation> reservationList = new HashSet<>();
 
+
+
+
+    Collection<Reservation> reservationList = new HashSet<>();
+    Reservation reserveRoom;
 
     private ReservationService(){
     }
@@ -42,43 +46,43 @@ public class ReservationService
 
     public Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate,Date checkOutDate)
     {
-        Reservation reserveRoom = new Reservation(customer,room,checkInDate,checkOutDate);
-        reservationList.add(reserveRoom);
+
+        reservationList.add(new Reservation(customer,room,checkInDate,checkOutDate));
         return reserveRoom;
     }
 
     public Collection<IRoom> findRooms (Date checkInDate,Date checkOutDate)
     {
         Collection<IRoom>displayList = new ArrayList<IRoom>();
-        for(Reservation checkInOut : reservationList )
+        for(Reservation checkInOut : reservationList)
         {
-            if(reservationList.contains(checkInDate))
+            if(checkInOut.getCheckInDate().equals(checkInDate) && checkInOut.getCheckOutDate().equals(checkOutDate))
             {
                 IRoom currentRoom = checkInOut.getRoom();
                 displayList.add(currentRoom);
             }
         }
 
-        for(Reservation checkInOut : reservationList )
-        {
-            if(reservationList.contains(checkOutDate))
-            {
-                IRoom currentRoom = checkInOut.getRoom();
-                displayList.add(currentRoom);
-            }
-        }
+//        for(Reservation checkInOut : reservationList)
+//        {
+//            if(checkInOut.getCheckOutDate().equals(checkOutDate))
+//            {
+//                IRoom currentRoom = checkInOut.getRoom();
+//                displayList.add(currentRoom);
+//            }
+//        }
 
         return displayList;
     }
 
     public Collection<Reservation> getCustomerReservation(Customer customer)
     {
-        HashSet<Reservation> reservations = new HashSet<>();
-        for(Reservation r : reservationList)
+        Collection<Reservation> reservations = new ArrayList<>();
+        for(Reservation customerReservation : reservationList)
         {
-            if(customer.equals(r.getCustomer()))
+            if(customerReservation.getCustomer().equals(customer))
             {
-                reservations.add(r);
+                reservations.add(customerReservation);
             }
         }
         return reservations;
@@ -94,6 +98,14 @@ public class ReservationService
     }
 
     public Collection<IRoom> getRoomList() {
+        for (IRoom iRoom : roomList) {
+            System.out.println(iRoom);
+
+        }
         return roomList;
+    }
+
+    public Collection<Reservation> getReservationList() {
+        return reservationList;
     }
 }

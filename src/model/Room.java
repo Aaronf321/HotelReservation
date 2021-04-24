@@ -8,7 +8,7 @@ public class Room implements IRoom
     private boolean roomIsFree;
 
 
-    public Room(String roomNumber,double price,RoomType roomType)
+    public Room(String roomNumber,double roomPrice,RoomType roomType)
     {
         this.roomNumber = roomNumber;
         this.roomPrice = roomPrice;
