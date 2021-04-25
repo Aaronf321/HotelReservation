@@ -2,7 +2,7 @@ package view;
 
 
 import api.HotelResource;
-import model.IRoom;
+import api.MenuResource;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +14,8 @@ public class MainMenu
     public static final HotelResource hotelResource = HotelResource.getInstance();
     public static Scanner input = new Scanner(System.in);
     public static Date parsedDate = null;
+    public MenuResource menuResource = new MenuResource();
+    AdminMenu adminMenu;
 
 
     public MainMenu()
@@ -81,52 +83,28 @@ public class MainMenu
 
     public void choiceTwo()
     {
-        Scanner input = new Scanner(System.in);
-        try
-        {
-            System.out.println("Please enter your email to check your current reservation: (format: name@domain.com) ");
-            String emailInput = input.nextLine();
-            hotelResource.getCustomerReservations(emailInput);
-        }catch (IllegalArgumentException e)
-        {
-            System.out.println("Invalid email!");
-            choiceTwo();
-        }
-
+        menuResource.userEmailInput();
         new MainMenu();
     }
     public void choiceThree()
     {
-        try {
-            System.out.println("Please enter your first name: ");
-            String firstName = input.next();
-            System.out.println("Please enter your last name: ");
-            String lastName = input.next();
-            System.out.println("Please enter you email (format name@domain.com:)");
-            String email = input.next();
-            hotelResource.createACustomer(email, firstName, lastName);
-        }catch (IllegalArgumentException e)
-        {
-            System.out.println("Invalid Entry!");
-            choiceThree();
-
-        }
-        new MainMenu();
+            hotelResource.createACustomer(menuResource.userEmailInput(),menuResource.userFirstNameInput(), menuResource.userLastNameInput());
+            new MainMenu();
+            menuSelect();
 
     }
 
     public void choiceFour()
     {
-        AdminMenu adminMenu = new AdminMenu();
+        new AdminMenu();
     }
 
     private static Date enterDate()
     {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        String dateInput = input.next();
 
         try {
-
+            String dateInput = input.next();
             parsedDate = dateFormat.parse(dateInput);
         } catch (ParseException e) {
             e.printStackTrace();

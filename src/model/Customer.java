@@ -20,8 +20,8 @@ public class Customer
 
         String regexEmail = "^(.+)@(.+).(.+)$";
         Pattern pattern = Pattern.compile(regexEmail);
-        boolean matches = pattern.matcher(email).matches();
-        if(matches == false)
+        boolean matches = pattern.matcher(this.email).matches();
+        if(!matches)
         {
             throw new IllegalArgumentException("Email does not match correct format. . .");
         }

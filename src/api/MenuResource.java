@@ -5,13 +5,17 @@ import model.RoomType;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class MenuResource
 {
     Scanner input = new Scanner(System.in);
     String roomNumInput;
     double roomPriceInput;
-    int roomTypeInput;
+    String firstNameInput;
+    String lastNameInput;
+    String emailInput;
+    boolean validEntry;
 
     public MenuResource()
     {
@@ -36,7 +40,7 @@ public class MenuResource
 
     public double userRoomPriceInput()
     {
-        boolean validEntry;
+
         do {
             try {
                 System.out.println("Enter price per night: ");
@@ -51,20 +55,66 @@ public class MenuResource
       return roomPriceInput;
     }
 
-
-    public int userRoomTypeInput()
+    public String userFirstNameInput()
     {
-        try
-        {
-            System.out.println("Enter room type: 1 for single bed, 2 for double bed");
-            int roomTypeInput;
-            roomTypeInput = input.nextInt();
 
-        }catch(InputMismatchException e)
-        {
-        }
-       return roomTypeInput;
+      do {
+          try {
+              System.out.println("Please enter your first name: ");
+              firstNameInput = input.next();
+              validEntry = true;
+          } catch (InputMismatchException e) {
+              System.out.println("Invalid input");
+              validEntry = false;
+              input.nextLine();
+          }
+      }while(!validEntry);
+        return firstNameInput;
     }
+
+    public String userLastNameInput()
+    {
+        do {
+            try {
+                System.out.println("Please enter your last name: ");
+                lastNameInput = input.next();
+                validEntry = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input");
+                validEntry = false;
+                input.nextLine();
+            }
+        }while(!validEntry);
+        return lastNameInput;
+    }
+
+    public String userEmailInput()
+    {
+
+
+        do {
+                try {
+                    System.out.println("Please enter you email (format name@domain.com:)");
+                    emailInput = input.next();
+                    validEntry = true;
+
+
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input");
+                    validEntry = false;
+                    input.nextLine();
+                }
+
+        }while(!validEntry);
+        return emailInput;
+    }
+
+
+
+
+
+
+
 
 
 

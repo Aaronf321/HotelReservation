@@ -6,8 +6,6 @@ import model.IRoom;
 import model.Room;
 import model.RoomType;
 import service.ReservationService;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -20,6 +18,7 @@ public class AdminMenu
     public static final AdminResource adminResource = AdminResource.getInstance();
     public static final ReservationService reservationService = ReservationService.getInstance();
     MenuResource menuResource = new MenuResource();
+    MainMenu mainMenu = new MainMenu();
     int roomTypeInput;
 
     public AdminMenu()
@@ -48,6 +47,7 @@ public class AdminMenu
          break;
 
          case 5:  new MainMenu();
+         mainMenu.menuSelect();
          break;
      }
 
@@ -95,16 +95,25 @@ public class AdminMenu
             adminResource.addRoom(addToList);
         }
 
-        System.out.println("Would you like to add another room? y/n");
-        String confirmInput = input.next();
-        if(confirmInput.equals("y"))
-        {
-            roomAdd();
-        }else if(confirmInput.equals("n"))
-        {
-            new AdminMenu();
-            adminSelect();
-        };
+        do {
+            try {
+                System.out.println("Would you like to add another room? y/n");
+                String confirmInput = input.next();
+                validEntry = true;
+                if (confirmInput.equals("y")) {
+                    roomAdd();
+                } else if (confirmInput.equals("n")) {
+                    new AdminMenu();
+                }
+
+            } catch (InputMismatchException exception) {
+                System.out.println("Invalid entry. Please enter y for yes or n for no");
+                validEntry = false;
+                input.nextLine();
+            }
+        }while (validEntry);
+
+
 
     }
 
