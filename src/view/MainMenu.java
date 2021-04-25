@@ -3,6 +3,7 @@ package view;
 
 import api.HotelResource;
 import api.MenuResource;
+import com.sun.tools.javac.Main;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,7 +16,7 @@ public class MainMenu
     public static Scanner input = new Scanner(System.in);
     public static Date parsedDate = null;
     public MenuResource menuResource = new MenuResource();
-    AdminMenu adminMenu;
+
 
 
     public MainMenu()
@@ -96,7 +97,7 @@ public class MainMenu
 
     public void choiceFour()
     {
-        new AdminMenu();
+        AdminMenu adminMenu = new AdminMenu();
     }
 
     private static Date enterDate()

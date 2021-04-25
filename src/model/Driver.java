@@ -20,8 +20,8 @@ public class Driver
 //        System.out.println(cService.getCustomer("yuli@email.com"));
 //        System.out.println("ALL CUSTOMERS " + cService.getAllCustomers());
 
-         AdminMenu adminMenu = new AdminMenu();
-       //MainMenu mainMenu = new MainMenu();
+       //  AdminMenu adminMenu = new AdminMenu();
+       MainMenu mainMenu = new MainMenu();
 
     }
 }

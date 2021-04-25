@@ -18,7 +18,7 @@ public class AdminMenu
     public static final AdminResource adminResource = AdminResource.getInstance();
     public static final ReservationService reservationService = ReservationService.getInstance();
     MenuResource menuResource = new MenuResource();
-    MainMenu mainMenu = new MainMenu();
+    //MainMenu mainMenu = new MainMenu();
     int roomTypeInput;
 
     public AdminMenu()
@@ -47,7 +47,7 @@ public class AdminMenu
          break;
 
          case 5:  new MainMenu();
-         mainMenu.menuSelect();
+
          break;
      }
 
