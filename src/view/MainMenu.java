@@ -82,9 +82,17 @@ public class MainMenu
     public void choiceTwo()
     {
         Scanner input = new Scanner(System.in);
-        System.out.println("Please enter your email to check your current reservation: (format: name@domain.com) ");
-        String emailInput = input.nextLine();
-        hotelResource.getCustomerReservations(emailInput);
+        try
+        {
+            System.out.println("Please enter your email to check your current reservation: (format: name@domain.com) ");
+            String emailInput = input.nextLine();
+            hotelResource.getCustomerReservations(emailInput);
+        }catch (IllegalArgumentException e)
+        {
+            System.out.println("Invalid email!");
+            choiceTwo();
+        }
+
         new MainMenu();
     }
     public void choiceThree()
@@ -100,6 +108,7 @@ public class MainMenu
         }catch (IllegalArgumentException e)
         {
             System.out.println("Invalid Entry!");
+            choiceThree();
 
         }
         new MainMenu();
