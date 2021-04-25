@@ -89,14 +89,19 @@ public class MainMenu
     }
     public void choiceThree()
     {
-        System.out.println("Please enter your first name: ");
-        String firstName = input.next();
-        System.out.println("Please enter your last name: ");
-        String lastName = input.next();
-        System.out.println("Please enter you email (format name@domain.com:)");
-        String email = input.next();
+        try {
+            System.out.println("Please enter your first name: ");
+            String firstName = input.next();
+            System.out.println("Please enter your last name: ");
+            String lastName = input.next();
+            System.out.println("Please enter you email (format name@domain.com:)");
+            String email = input.next();
+            hotelResource.createACustomer(email, firstName, lastName);
+        }catch (IllegalArgumentException e)
+        {
+            System.out.println("Invalid Entry!");
 
-        hotelResource.createACustomer(email,firstName,lastName);
+        }
         new MainMenu();
 
     }
