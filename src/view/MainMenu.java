@@ -65,14 +65,16 @@ public class MainMenu
         //SOMETHING GOES HERE
 
 
-        System.out.println("Please enter your email (format: email@domain.com)");
-        String emailInput = input.next();
-        System.out.println("Please enter room number");
-        String roomInput = input.next();
+//        System.out.println("Please enter your email (format: email@domain.com)");
+//        String emailInput = input.next();
+//        System.out.println("Please enter room number");
+//        String roomInput = input.next();
+
+
 
 
         hotelResource.findARoom(checkInInput,checkOutInput);
-        hotelResource.bookARoom(emailInput, hotelResource.getRoom(roomInput),checkInInput,checkOutInput);
+        hotelResource.bookARoom(menuResource.userEmailInput(), hotelResource.getRoom(menuResource.userRoomNumInput()),checkInInput,checkOutInput);
         new MainMenu();
 
     }
