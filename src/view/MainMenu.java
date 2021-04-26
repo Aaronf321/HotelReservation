@@ -86,7 +86,7 @@ public class MainMenu
 
     public void choiceTwo()
     {
-        menuResource.userEmailInput();
+        hotelResource.getCustomerReservations(menuResource.userEmailInput());
         new MainMenu();
     }
     public void choiceThree()
