@@ -13,8 +13,9 @@ import java.util.Scanner;
 public class MainMenu
 {
     public static final HotelResource hotelResource = HotelResource.getInstance();
+   // public static final Date parsedDate = Date.getInstance();
     public static Scanner input = new Scanner(System.in);
-    public static Date parsedDate = null;
+
     public MenuResource menuResource = new MenuResource();
 
 
@@ -57,24 +58,12 @@ public class MainMenu
     public void choiceOne()
     {
         System.out.println("Enter check in date: ");
-        Date checkInInput = enterDate();
+        Date checkInInput = menuResource.enterDate();
         System.out.println("Enter check out date: ");
-        Date checkOutInput = enterDate();
-
-
-        //SOMETHING GOES HERE
-
-
-//        System.out.println("Please enter your email (format: email@domain.com)");
-//        String emailInput = input.next();
-//        System.out.println("Please enter room number");
-//        String roomInput = input.next();
-
-
-
+        Date checkOutInput = menuResource.enterDate();
 
         hotelResource.findARoom(checkInInput,checkOutInput);
-        hotelResource.bookARoom(menuResource.userEmailInput(), hotelResource.getRoom(menuResource.userRoomNumInput()),checkInInput,checkOutInput);
+        hotelResource.bookARoom(menuResource.userEmailInput(), hotelResource.getRoom(menuResource.userRoomNumChecker()),checkInInput,checkOutInput);
         new MainMenu();
 
     }
@@ -86,6 +75,7 @@ public class MainMenu
 
     public void choiceTwo()
     {
+
         hotelResource.getCustomerReservations(menuResource.userEmailInput());
         new MainMenu();
     }
@@ -102,18 +92,7 @@ public class MainMenu
         AdminMenu adminMenu = new AdminMenu();
     }
 
-    private static Date enterDate()
-    {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
-        try {
-            String dateInput = input.next();
-            parsedDate = dateFormat.parse(dateInput);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return parsedDate;
-    }
 
 
 }

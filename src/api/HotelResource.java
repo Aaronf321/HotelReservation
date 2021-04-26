@@ -5,6 +5,8 @@ import model.IRoom;
 import model.Reservation;
 import service.CustomerService;
 import service.ReservationService;
+import view.MainMenu;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -46,6 +48,11 @@ public class HotelResource
 
     public Collection<Reservation>getCustomerReservations(String customerEmail)
     {
+        if(customerService.getCustomer(customerEmail) == null)
+        {
+            System.out.println("Sorry, you must first make an account before you can search for your reservation.");
+            new MainMenu();
+        }
         return reservationService.getCustomerReservation(customerService.getCustomer(customerEmail));
 
         //return reservationService.getCustomerReservation(reservationService.getReservationList();

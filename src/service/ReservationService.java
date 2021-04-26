@@ -54,43 +54,39 @@ public class ReservationService
     public Collection<IRoom> findRooms (Date checkInDate,Date checkOutDate)
     {
         Collection<IRoom>displayList = new ArrayList<IRoom>();
-        for(Reservation checkInOut : reservationList)
+        if(reservationList.isEmpty())
         {
-            if(checkInOut.getCheckInDate().equals(checkInDate) && checkInOut.getCheckOutDate().equals(checkOutDate))
-            {
-                IRoom currentRoom = checkInOut.getRoom();
-                displayList.add(currentRoom);
+            getRoomList();
+        }else {
+            for (Reservation checkInOut : reservationList) {
+                if (checkInOut.getCheckInDate().after(checkInDate) && checkInOut.getCheckOutDate().before(checkOutDate)){
+                    IRoom currentRoom = checkInOut.getRoom();
+                    displayList.add(currentRoom);
+                }
             }
         }
-
-//        for(Reservation checkInOut : reservationList)
-//        {
-//            if(checkInOut.getCheckOutDate().equals(checkOutDate))
-//            {
-//                IRoom currentRoom = checkInOut.getRoom();
-//                displayList.add(currentRoom);
-//            }
-//        }
-
         return displayList;
     }
+
 
     public Collection<Reservation> getCustomerReservation(Customer customer)
     {
         Collection<Reservation> reservations = new ArrayList<>();
-        for(Reservation customerReservation : reservationList)
-        {
-            if(customerReservation.getCustomer().equals(customer))
-            {
-                reservations.add(customerReservation);
-                System.out.println(reservations);
-            }else
-            {
-                System.out.println("Reservation not found.");
+        try{
+            for (Reservation customerReservation : reservationList) {
+                if (customerReservation.getCustomer().equals(customer)) {
+                    reservations.add(customerReservation);
+                    System.out.println(reservations);
+                } else {
+                    System.out.println("Reservation not found.");
+                }
+                return reservations;
             }
+        }catch (NullPointerException e)
+        {
+            System.out.println("This does not exist");
         }
         return reservations;
-
     }
     /**
      * figure out how to return customer reservation from map (I think)
@@ -104,12 +100,9 @@ public class ReservationService
     public Collection<IRoom> getRoomList() {
         for (IRoom iRoom : roomList) {
             System.out.println(iRoom);
-
         }
         return roomList;
     }
 
-    public Collection<Reservation> getReservationList() {
-        return reservationList;
-    }
+
 }

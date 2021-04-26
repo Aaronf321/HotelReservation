@@ -57,6 +57,7 @@ public class AdminMenu
     public void viewCustomers()
     {
         adminResource.getAllCustomers();
+        new AdminMenu();
     }
 
 
