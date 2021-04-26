@@ -83,6 +83,10 @@ public class ReservationService
             if(customerReservation.getCustomer().equals(customer))
             {
                 reservations.add(customerReservation);
+                System.out.println(reservations);
+            }else
+            {
+                System.out.println("Reservation not found.");
             }
         }
         return reservations;

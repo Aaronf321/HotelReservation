@@ -12,8 +12,9 @@ public class Driver
 //        Customer customer = new Customer("Yuli","Folborg","yuli@email.com");
 //        System.out.println(customer);
 
-//        CustomerService cService = new CustomerService();
-//        cService.addCustomer("yuli@email.com","Yuli","Folborg");
+        CustomerService cService = new CustomerService();
+        cService.addCustomer("yuli@email.com","Yuli","Folborg");
+
 //        cService.addCustomer("tiger@cat.com" , "Tiger", "Folborg");
 //        System.out.println("GET CUSTOMER" + cService.getCustomer("tiger@cat.com"));
 //
