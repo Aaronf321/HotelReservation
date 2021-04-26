@@ -7,8 +7,8 @@ import java.util.*;
 public class CustomerService
 {
     private static  CustomerService customerService = null;
-    Collection<Customer> customerSet = new HashSet<Customer>();
-    Map<String, Customer> mapOfPeople = new HashMap<String,Customer>();
+    Collection<Customer> customerList = new ArrayList<>();
+  //  Map<String, Customer> mapOfPeople = new HashMap<String,Customer>();
 
 
     public static CustomerService getInstance()
@@ -25,25 +25,31 @@ public class CustomerService
     public void addCustomer(String email, String firstName, String lastName)
     {
         Customer customer = new Customer(firstName,lastName,email);
-        customerSet.add(customer);
-        mapOfPeople.put(customer.getEmail(),customer);
+        customerList.add(customer);
+
     }
 
     public Customer getCustomer(String customerEmail)
     {
+        for(Customer customers:customerList)
+        {
+            if(customers.getEmail().equals(customerEmail))
+            {
+                return customers;
+            }
+        }
+        return null;
 
-        return mapOfPeople.get(customerEmail);
-                //map key/val
     }
 
     public Collection<Customer>getAllCustomers()
     {
-        for(Customer customer: customerSet)
+        for(Customer customer: customerList)
         {
             System.out.println(customer);
 
         }
-        return customerSet;
+        return customerList;
     }
 
 
