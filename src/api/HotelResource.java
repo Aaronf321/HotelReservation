@@ -1,5 +1,6 @@
 package api;
 
+import com.sun.tools.javac.Main;
 import model.Customer;
 import model.IRoom;
 import model.Reservation;
@@ -43,6 +44,11 @@ public class HotelResource
 
     public Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date checkOutDate)
     {
+        if(customerService.getCustomer(customerEmail) == null)
+        {
+            System.out.println("Sorry, you must first make an account before you can book a reservation.");
+            new MainMenu();
+        }
         return reservationService.reserveARoom(customerService.getCustomer(customerEmail),room,checkInDate,checkOutDate);
     }
 

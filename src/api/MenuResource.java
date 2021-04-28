@@ -1,6 +1,7 @@
 package api;
 
 import model.IRoom;
+import model.Room;
 import service.ReservationService;
 
 import java.text.ParseException;
@@ -40,42 +41,80 @@ public class MenuResource
 //        }
 //        return parsedDate;
 //    }
-public String userRoomNumInput()
-{
-    try {
-        System.out.println("Enter room number: ");
-        roomNumInput = input.next();
 
-    }catch (IllegalArgumentException e)
-    {
-        System.out.println("Invalid Entry");
-    }
-    return roomNumInput;
-}
 
-    public String userRoomNumChecker()
+    public String userRoomNumInput()
     {
-        do {
-            try {
+        try {
+            System.out.println("Enter room number: ");
+            roomNumInput = input.next();
+
+            while(!userRoomNumInput(roomNumInput))
+            {
                 System.out.println("Enter room number: ");
                 roomNumInput = input.next();
-                if (userRoomNumChecker(roomNumInput)) {
-                    System.out.println("Enter room number: ");
-                    roomNumInput = input.next();
-                }
-
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid Entry");
             }
-            return roomNumInput;
-        }while(!userRoomNumChecker(roomNumInput));
 
+        }catch (IllegalArgumentException e)
+        {
+            System.out.println("Invalid Entry");
+        }
+        return roomNumInput;
     }
+
+    public boolean userRoomNumInput(String roomNumInput)
+    {
+        for(IRoom rooms: reservationService.getRoomList())
+        {
+            if(rooms.getRoomNumber().equals(roomNumInput))
+            {
+                System.out.println("This room number is already created");
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public String userRoomNumChecker(){
+        try {
+            System.out.println("Enter room number: ");
+            this.roomNumInput = input.next();
+            while (!userRoomNumChecker(roomNumInput)) {
+                    System.out.println("Enter room number: ");
+                    this.roomNumInput = input.next();
+            }
+        }catch(IllegalArgumentException e){
+            System.out.println("Invalid Entry");
+
+        }
+        return roomNumInput;
+    }
+
+//    public String userRoomNumChecker(){
+//        try {
+//            System.out.println("Enter room number: ");
+//            roomNumInput = input.next();
+//            for(IRoom rooms : reservationService.getRoomList())
+//            {
+//                if (!roomNumInput.equals(rooms.getRoomNumber())) {
+//                    System.out.println("Enter room number: ");
+//                    roomNumInput = input.next();
+//
+//                }
+//                return roomNumInput;
+//            }
+//        }catch(IllegalArgumentException e){
+//            System.out.println("Invalid Entry");
+//
+//        }
+//        return roomNumInput;
+//    }
+
 
 
     public boolean userRoomNumChecker(String roomNumberInput)
     {
-
                 for(IRoom availableRooms: reservationService.getRoomList())
                 {
                     if(!availableRooms.getRoomNumber().equals(roomNumberInput))
@@ -83,11 +122,12 @@ public String userRoomNumInput()
                         System.out.println("That room number does not exist.\n" +
                                 "please choose a room number from the available list of\n" +
                                 "rooms.");
-                        return true;
+                        return false;
 
                     }
+                    return true;
                 }
-                return false;
+               return true;
     }
 
 

@@ -3,7 +3,7 @@ package model;
 public class Room implements IRoom
 {
     private String roomNumber;
-    double roomPrice;
+    private double roomPrice;
     private RoomType roomType;
     private boolean roomIsFree;
 
@@ -21,26 +21,16 @@ public class Room implements IRoom
         return roomNumber;
     }
 
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
     @Override
     public double getRoomPrice() {
         return roomPrice;
     }
 
-    public void setRoomPrice(double roomPrice) {
-        this.roomPrice = roomPrice;
-    }
+
 
     @Override
     public RoomType getRoomType() {
         return roomType;
-    }
-
-    public void setRoomType(RoomType roomType) {
-        this.roomType = roomType;
     }
 
     public boolean isFree()

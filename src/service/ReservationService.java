@@ -9,7 +9,7 @@ import java.util.*;
 public class ReservationService
 {
     private static  ReservationService reservationService = null;
-    List<IRoom> roomList = new ArrayList<>();
+    public List<IRoom> roomList = new ArrayList<>();
 
 
 
