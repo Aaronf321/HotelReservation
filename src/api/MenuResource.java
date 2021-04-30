@@ -75,18 +75,19 @@ public class MenuResource
         return true;
     }
 
-
     public String userRoomNumChecker(){
         try {
             System.out.println("Enter room number: ");
-            this.roomNumInput = input.next();
-            while (!userRoomNumChecker(roomNumInput)) {
-                    System.out.println("Enter room number: ");
-                    this.roomNumInput = input.next();
+            roomNumInput = input.next();
+            while (!userRoomNumChecker(roomNumInput)){
+                System.out.println("That room number does not exist.\n" +
+                        "please choose a room number from the available list of\n" +
+                        "rooms.");
+                System.out.println("Enter room number: ");
+                roomNumInput = input.next();
             }
         }catch(IllegalArgumentException e){
             System.out.println("Invalid Entry");
-
         }
         return roomNumInput;
     }
@@ -95,14 +96,13 @@ public class MenuResource
 //        try {
 //            System.out.println("Enter room number: ");
 //            roomNumInput = input.next();
+//            while()
 //            for(IRoom rooms : reservationService.getRoomList())
 //            {
 //                if (!roomNumInput.equals(rooms.getRoomNumber())) {
-//                    System.out.println("Enter room number: ");
-//                    roomNumInput = input.next();
-//
+//                        System.out.println("Enter room number: ");
+//                        roomNumInput = input.next();
 //                }
-//                return roomNumInput;
 //            }
 //        }catch(IllegalArgumentException e){
 //            System.out.println("Invalid Entry");
@@ -115,19 +115,22 @@ public class MenuResource
 
     public boolean userRoomNumChecker(String roomNumberInput)
     {
-                for(IRoom availableRooms: reservationService.getRoomList())
-                {
-                    if(!availableRooms.getRoomNumber().equals(roomNumberInput))
-                    {
-                        System.out.println("That room number does not exist.\n" +
-                                "please choose a room number from the available list of\n" +
-                                "rooms.");
-                        return false;
 
-                    }
-                    return true;
-                }
-               return true;
+        for(IRoom rooms: reservationService.getRoomList())
+        {
+            if(rooms.getRoomNumber().equals(roomNumberInput))
+            {
+
+                validEntry = true;
+                break;
+            }else {
+
+                validEntry = false;
+            }
+
+        }
+
+        return validEntry;
     }
 
 

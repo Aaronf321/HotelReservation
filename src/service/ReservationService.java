@@ -29,6 +29,20 @@ public class ReservationService
         return reservationService;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReservationService that = (ReservationService) o;
+        return reservationList.equals(that.reservationList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(reservationList);
+    }
+
+
     public void addRoom(IRoom room)
     {
         roomList.add(room);
